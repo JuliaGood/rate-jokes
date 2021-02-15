@@ -5,9 +5,9 @@ class Joke extends Component {
     return (
       <div className='Joke'>
         <div className='Joke-buttons'>
-          <i className='fas fa-arrow-up'></i>
+          <i className='fas fa-arrow-up' onClick={this.props.upVote} ></i>
           <span>{this.props.votes}</span>
-          <i className='fas fa-arrow-down'></i>
+          <i className='fas fa-arrow-down' onClick={this.props.downVote} ></i>
         </div>
 
         <div className='Joke-text'>{this.props.text}</div>

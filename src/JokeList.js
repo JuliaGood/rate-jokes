@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './JokeList.css';
+import Joke from './Joke';
+import { v4 as uuidv4 } from 'uuid';
 
 class JokeList extends Component {
   static defaultProps = {
@@ -22,11 +24,19 @@ class JokeList extends Component {
       });
       console.log('response: ', response);
       // we gonna make each joke an OBJECT (not string) - that we can add things in like VOTES & DEVOTES
-      randJokes.push({ jokeObj: response.data.joke, votes: 0 });
+      randJokes.push({ text: response.data.joke, votes: 0, id: uuidv4() });
       console.log('randJokes: ', randJokes);
     }
     
     this.setState({ jokes: randJokes });
+  }
+
+  handleVote(id, delta) {
+    this.setState(st => ({
+      jokes: st.jokes.map(joke =>
+        joke.id === id ? {...joke, votes: joke.votes + delta } : joke
+      )
+    }))
   }
 
   render() {
@@ -40,7 +50,13 @@ class JokeList extends Component {
         
         <div className='JokeList-jokes'>
           {this.state.jokes.map((joke) => (
-            <div>{joke.jokeObj} - {joke.votes}</div>
+            <Joke 
+              text={joke.text} 
+              votes={joke.votes} 
+              key={joke.id} 
+              upVote={() => this.handleVote(joke.id, 1)}
+              downVote={() => this.handleVote(joke.id, -1)}
+            />
           ))}
         </div>
       </div>
