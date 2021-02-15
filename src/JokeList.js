@@ -21,11 +21,11 @@ class JokeList extends Component {
         headers: { Accept: 'application/json' } //'couse default response format is HTML
       });
       console.log('response: ', response);
-      randJokes.push(response.data.joke);
+      // we gonna make each joke an OBJECT (not string) - that we can add things in like VOTES & DEVOTES
+      randJokes.push({ jokeObj: response.data.joke, votes: 0 });
       console.log('randJokes: ', randJokes);
     }
     
-
     this.setState({ jokes: randJokes });
   }
 
@@ -40,7 +40,7 @@ class JokeList extends Component {
         
         <div className='JokeList-jokes'>
           {this.state.jokes.map((joke) => (
-            <div>{joke}</div>
+            <div>{joke.jokeObj} - {joke.votes}</div>
           ))}
         </div>
       </div>
