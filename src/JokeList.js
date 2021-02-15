@@ -11,11 +11,19 @@ class JokeList extends Component {
 
   constructor(props) {
     super(props);
-    this.state={ jokes: [] };
+    this.state={ 
+      jokes: JSON.parse(window.localStorage.getItem('jokes') || "[]" )
+    };
   };
 
   // where's the best place to make a request? - in the componentDidMount()
-  async componentDidMount() {
+  componentDidMount() {
+    if(this.state.jokes.length === 0) {
+      this.getJokes();
+    }
+  }
+
+  async getJokes() {
     let randJokes = [];
 
     while(randJokes.length < this.props.numJokes) {
@@ -29,6 +37,8 @@ class JokeList extends Component {
     }
     
     this.setState({ jokes: randJokes });
+    window.localStorage.setItem("jokes", JSON.stringify(randJokes));
+    console.log('window.localStorage:', window.localStorage);
   }
 
   handleVote(id, delta) {
