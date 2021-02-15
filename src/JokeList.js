@@ -15,6 +15,10 @@ class JokeList extends Component {
       jokes: JSON.parse(window.localStorage.getItem('jokes') || "[]" ),
       loading: false
     };
+    this.seenJokes = new Set(this.state.jokes.map(joke => (
+      joke.text
+    )));
+    console.log('this.seenJokes: ', this.seenJokes);
   };
 
   // where's the best place to make a request? - in the componentDidMount()
@@ -33,8 +37,13 @@ class JokeList extends Component {
       });
       console.log('response: ', response);
       // we gonna make each joke an OBJECT (not string) - that we can add things in like VOTES & DEVOTES
-      randJokes.push({ text: response.data.joke, votes: 0, id: uuidv4() });
-      console.log('randJokes: ', randJokes);
+      let newJoke = response.data.joke;
+      if(!this.seenJokes.has(newJoke)) {
+        randJokes.push({ text: newJoke, votes: 0, id: uuidv4() });
+      } else {
+        console.log('found a duplicate');
+        
+      }
     }
     
     this.setState(st => ({
