@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './Joke.css';
+import './jokeItem.css';
 
-class Joke extends Component {
+class JokeItem extends Component {
   getColor() {
     if (this.props.votes >= 15) {
       return "#4CAF50";
@@ -40,17 +40,17 @@ class Joke extends Component {
 
   render() {
     return (
-      <div className='Joke'>
-        <div className='Joke-buttons'>
+      <div className='joke'>
+        <div className='joke-buttons'>
           <i className='fas fa-arrow-up' onClick={this.props.upVote} ></i>
           <span 
-            className='Joke-votes'
+            className='joke-votes'
             style={{ borderColor: this.getColor() }}
           >{this.props.votes}</span>
           <i className='fas fa-arrow-down' onClick={this.props.downVote} ></i>
         </div>
-        <div className='Joke-text'>{this.props.text}</div>
-        <div className='Joke-smiley'>
+        <div className='joke-text'>{this.props.text}</div>
+        <div className='joke-smiley'>
           <i className={this.getEmoji()} ></i>
         </div>
       </div>
@@ -58,4 +58,4 @@ class Joke extends Component {
   }
 }
 
-export default Joke;
+export default JokeItem;
