@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './jokeList.css';
+import './JokeList.css';
 import JokeItem from './JokeItem';
 import { v4 as uuidv4 } from 'uuid';
 

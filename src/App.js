@@ -1,5 +1,5 @@
 import JokeList from './JokeList';
-import './app.css';
+import './App.css';
 
 const App = () => {
   return (
